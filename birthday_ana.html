@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday Ana</title>
+  <!-- Google Fonts for elegant typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ====== Root Theme & Utility ====== */
+    :root{
+      /* Brighter romantic palette */
+      --bg1:#fff7fb;
+      --bg2:#fff0ff;
+      --pink:#ff90b8;
+      --deep-pink:#ff4d94;
+      --purple:#b48bff;
+      --gold:#ffd46a;
+      --glass: rgba(255,255,255,0.32);
+      --text:#3a2b2b;
+      --muted:#6f5960;
+      --cardShadow: 0 12px 36px rgba(180,102,170,0.14);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;background:linear-gradient(180deg,var(--bg1),var(--bg2));font-family:Montserrat,system-ui,Arial;color:var(--text);scroll-behavior:smooth}
+    a{color:inherit}
+
+    /* ====== Page Layout ====== */
+    .container{max-width:1100px;margin:0 auto;padding:40px 20px}
+    header{position:fixed;left:0;right:0;top:12px;display:flex;justify-content:flex-end;padding:0 24px;z-index:60}
+    .top-controls{display:flex;gap:12px;align-items:center}
+    .btn{background:linear-gradient(180deg,var(--pink),var(--deep-pink));color:white;padding:10px 16px;border-radius:999px;border:none;cursor:pointer;box-shadow:var(--cardShadow);transition:transform .25s,box-shadow .25s;backdrop-filter:blur(6px)}
+    .btn:active{transform:translateY(2px)}
+    .toggle-music{display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(90deg,rgba(255,255,255,0.15),rgba(255,255,255,0.05));border-radius:999px;border:1px solid rgba(255,255,255,0.12)}
+
+    /* ====== Hero Section ====== */
+    .hero{min-height:100vh;display:grid;place-items:center;position:relative;padding:120px 20px 60px}
+    .hero-card{width:100%;max-width:980px;padding:48px;border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,0.65),rgba(255,255,255,0.35));box-shadow:0 15px 50px rgba(154,98,139,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.45);text-align:center}
+    .glow-title{font-family:'Playfair Display',serif;font-size:48px;letter-spacing:1px;color:#fff;padding:10px 18px;border-radius:12px;background:linear-gradient(90deg,var(--deep-pink),var(--purple));display:inline-block;box-shadow:0 8px 30px rgba(138,107,212,0.25);text-shadow:0 6px 24px rgba(138,107,212,0.35);transform:translateZ(0)}
+    .subtitle{margin-top:12px;color:var(--muted);font-size:18px}
+    .hero-actions{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* Floating hearts */
+    .heart{position:absolute;width:26px;height:26px;background:radial-gradient(circle at 30% 30%,#fff7,rgba(255,255,255,0));transform:rotate(-45deg);left:50%;top:50%;opacity:.9;border-radius:6px}
+    .heart:before,.heart:after{content:'';position:absolute;width:26px;height:26px;background:var(--deep-pink);border-radius:50%}
+    .heart:before{top:-13px;left:0}
+    .heart:after{left:13px;top:0}
+    .hearts-container{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .flags-container{position:absolute;inset:0;pointer-events:none;overflow:visible}
+
+    /* Jamaica flag small SVG styling */
+    .jamaica-flag{width:36px;height:24px;border-radius:4px;box-shadow:0 6px 18px rgba(0,0,0,0.12);display:inline-block;margin-right:8px}
+
+    /* ====== Sections ====== */
+    section{padding:80px 20px}
+    h2.section-title{font-family:Playfair Display;font-size:28px;margin-bottom:18px;color:var(--purple)}
+    .glass{background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.35));border-radius:14px;padding:20px;box-shadow:var(--cardShadow);border:1px solid rgba(255,255,255,0.4);backdrop-filter:blur(8px)}
+
+    /* Typing effect */
+    .typing{font-size:20px;color:#5a3b4b;min-height:72px}
+    .cursor{display:inline-block;width:3px;background:var(--purple);margin-left:6px;animation:blink .9s steps(2) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* Gallery: polaroid style */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px}
+    .polaroid{background:white;padding:12px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.08);transform-origin:center;transition:transform .35s,box-shadow .35s}
+    .polaroid img{width:100%;height:180px;object-fit:cover;border-radius:8px;display:block}
+    .polaroid:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 18px 40px rgba(138,107,212,0.14)}
+    .polaroid .caption{margin-top:10px;font-size:14px;color:var(--muted);text-align:center}
+
+    /* Reasons cards */
+    .reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+    .reason{padding:18px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,0.6),rgba(255,255,255,0.35));text-align:center;transition:transform .3s,box-shadow .3s}
+    .reason:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(155,100,150,0.12)}
+    .reason .icon{font-size:28px;color:var(--gold);margin-bottom:10px}
+
+    /* Surprise modal */
+    .modal{position:fixed;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,rgba(10,8,12,0.35),rgba(10,8,12,0.6));z-index:120;opacity:0;pointer-events:none;transition:opacity .25s}
+    .modal.open{opacity:1;pointer-events:auto}
+    .modal-card{width:90%;max-width:760px;padding:28px;border-radius:16px;background:linear-gradient(135deg,#fff0f6,#fff);box-shadow:0 30px 80px rgba(122,52,110,0.35);text-align:center}
+
+    /* Final section */
+    .final{min-height:60vh;display:grid;place-items:center;text-align:center;padding:80px 20px}
+    .final .love{font-family:Playfair Display;font-size:48px;color:var(--gold);text-shadow:0 8px 40px rgba(244,192,109,0.18)}
+
+    /* Responsive tweaks */
+    @media (max-width:720px){.glow-title{font-size:32px}.hero-card{padding:28px}}
+  </style>
+</head>
+<body>
+  <!-- Top controls (music toggle & surprise) -->
+  <header>
+    <div class="top-controls">
+      <!-- Static mini Jamaican flags -->
+      <svg class="jamaica-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="30" height="20" fill="#000"/>
+        <polygon points="0,0 30,0 15,10" fill="#009B3A"/>
+        <polygon points="0,20 30,20 15,10" fill="#009B3A"/>
+        <line x1="0" y1="0" x2="30" y2="20" stroke="#ffd400" stroke-width="4" stroke-linecap="square" />
+        <line x1="30" y1="0" x2="0" y2="20" stroke="#ffd400" stroke-width="4" stroke-linecap="square" />
+      </svg>
+      <svg class="jamaica-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="30" height="20" fill="#000"/>
+        <polygon points="0,0 30,0 15,10" fill="#009B3A"/>
+        <polygon points="0,20 30,20 15,10" fill="#009B3A"/>
+        <line x1="0" y1="0" x2="30" y2="20" stroke="#ffd400" stroke-width="4" stroke-linecap="square" />
+        <line x1="30" y1="0" x2="0" y2="20" stroke="#ffd400" stroke-width="4" stroke-linecap="square" />
+      </svg>
+      <div class="toggle-music btn" id="musicToggle" title="Play/Pause music">♫ Music</div>
+      <button class="btn" id="surpriseBtn">Surprise 💌</button>
+    </div>
+  </header>
+
+  <!-- Hearts container (floating hearts created by JS) -->
+  <div class="hearts-container" id="hearts"></div>
+  <!-- Floating flags container -->
+  <div class="flags-container" id="flags"></div>
+
+  <!-- Hero -->
+  <main class="hero">
+    <div class="container">
+      <div class="hero-card glass">
+        <!-- Glowing title -->
+        <div class="glow-title">Happy Birthday, Ana ✨</div>
+        <div class="subtitle">Another year more beautiful — today we celebrate you.</div>
+
+        <div class="hero-actions">
+          <button class="btn" onclick="document.getElementById('love').scrollIntoView({behavior:'smooth'})">Read My Love</button>
+        </div>
+
+        <!-- Countdown timer -->
+        <div style="margin-top:22px;color:var(--muted)">
+          <strong id="countdownDays" style="font-size:22px;color:var(--purple)"></strong>
+          <div id="countdownText" style="font-size:14px;color:var(--muted)">until your special day</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Love message with typing animation -->
+  <section id="love">
+    <div class="container">
+      <h2 class="section-title">A Love Letter for Ana</h2>
+      <div class="glass">
+        <p class="typing" id="typingText" aria-live="polite"></p><span class="cursor"></span>
+        <p style="margin-top:18px;color:var(--muted);">Every moment with you is my favorite memory. Thank you for being you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Memory Gallery removed as requested -->
+
+  <!-- Reasons I Love You -->
+  <section id="reasons">
+    <div class="container">
+      <h2 class="section-title">Reasons I Love You</h2>
+      <div class="reasons">
+        <div class="reason glass"><div class="icon">❤️</div><div class="title">Your Kindness</div><div class="desc">You make every space softer and kinder.</div></div>
+        <div class="reason glass"><div class="icon">🌟</div><div class="title">Your Light</div><div class="desc">Your smile brightens everything.</div></div>
+        <div class="reason glass"><div class="icon">🎨</div><div class="title">Your Creativity</div><div class="desc">You make life colorfully unexpected.</div></div>
+        <div class="reason glass"><div class="icon">🫶</div><div class="title">Your Heart</div><div class="desc">I feel safe in your love.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Surprise Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-card glass">
+      <h2 style="font-family:Playfair Display">A Little Surprise</h2>
+      <p style="margin-top:8px;color:var(--muted)">Open your heart — there's a secret waiting inside.</p>
+      <div style="margin-top:18px">
+        <button class="btn" id="openSecret">Open Message</button>
+      </div>
+      <div id="secretMsg" style="margin-top:18px;display:none;font-size:18px;color:#5a3b4b">Ana, you are my forever. I love you beyond words. — 💖</div>
+      <div style="margin-top:20px"><button class="btn" id="closeModal">Close</button></div>
+    </div>
+  </div>
+
+  <!-- Final Section -->
+  <section class="final" id="final">
+    <div>
+      <div class="love">I Love You Ana</div>
+      <p style="color:var(--muted);margin-top:10px">Forever & always.</p>
+    </div>
+  </section>
+
+  <!-- Canvas for confetti/stars -->
+  <canvas id="confettiCanvas" style="position:fixed;inset:0;pointer-events:none;z-index:80"></canvas>
+
+  <!-- JavaScript: animations, typing, hearts, countdown, music, modal, confetti -->
+  <script>
+    // ====== Configuration ======
+    // Set your birthday date here (YYYY-MM-DD) — change to Ana's birthday for accurate countdown
+    const BIRTHDAY_DATE = '2026-12-25';
+
+    // ====== Simple typing effect ======
+    const messages = [
+      "Happy Birthday, my love.",
+      "You are my light, my joy, my home.",
+      "Today we celebrate you — and every moment we share."
+    ];
+    const typingEl = document.getElementById('typingText');
+    let msgIndex=0, charIndex=0;
+    function typeLoop(){
+      const msg = messages[msgIndex];
+      if(charIndex<=msg.length){
+        typingEl.textContent = msg.slice(0,charIndex);
+        charIndex++;
+        setTimeout(typeLoop, 45 + Math.random()*40);
+      } else {
+        setTimeout(()=>{charIndex=0;msgIndex=(msgIndex+1)%messages.length;typeLoop()}, 2000);
+      }
+    }
+    typeLoop();
+
+    // ====== Floating hearts ======
+    const heartsContainer = document.getElementById('hearts');
+    function createHeart(){
+      const h=document.createElement('div');h.className='heart';
+      const size=12+Math.random()*28;h.style.width=size+'px';h.style.height=size+'px';
+      h.style.left=(Math.random()*100)+'%';
+      h.style.top=(100+Math.random()*20)+'%';
+      h.style.opacity=0.9*Math.random()+0.3;
+      h.style.transform='scale('+ (0.6+Math.random()*1.1) +') rotate('+ (Math.random()*40-20) +'deg)';
+      heartsContainer.appendChild(h);
+      const duration=6000+Math.random()*8000;
+      h.animate([{transform:h.style.transform,opacity:h.style.opacity,offset:0},{transform:'translateY(-120vh) '+h.style.transform,opacity:0.05,offset:1}],{duration:duration,iterations:1,easing:'cubic-bezier(.2,.8,.2,1)'});
+      setTimeout(()=>{h.remove()},duration);
+    }
+    setInterval(createHeart, 800);
+
+    // ====== Floating mini Jamaican flags ======
+    const flagsContainer = document.getElementById('flags');
+    function createFlag(){
+      const wrapper = document.createElement('div');
+      wrapper.style.position='absolute';
+      const size = 22 + Math.random()*18;
+      wrapper.style.width = size+'px';
+      wrapper.style.height = (size*0.67)+'px';
+      wrapper.style.left = (Math.random()*100)+'%';
+      wrapper.style.top = (100+Math.random()*20)+'%';
+      wrapper.style.pointerEvents='none';
+      wrapper.style.opacity = 0.95;
+      // Inline SVG for Jamaica flag
+      wrapper.innerHTML = `
+        <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size*0.67}">
+          <rect width="30" height="20" fill="#000"/>
+          <polygon points="0,0 30,0 15,10" fill="#009B3A"/>
+          <polygon points="0,20 30,20 15,10" fill="#009B3A"/>
+          <line x1="0" y1="0" x2="30" y2="20" stroke="#ffd400" stroke-width="3" stroke-linecap="square" />
+          <line x1="30" y1="0" x2="0" y2="20" stroke="#ffd400" stroke-width="3" stroke-linecap="square" />
+        </svg>`;
+      flagsContainer.appendChild(wrapper);
+      const duration = 5000 + Math.random()*7000;
+      wrapper.animate([{transform:'translateY(0) rotate(0deg)',opacity:1,offset:0},{transform:'translateY(-110vh) rotate('+ (Math.random()*60-30) +'deg)',opacity:0.08,offset:1}],{duration:duration,iterations:1,easing:'cubic-bezier(.2,.8,.2,1)'});
+      setTimeout(()=>wrapper.remove(), duration);
+    }
+    // occasional flags
+    setInterval(createFlag, 1400);
+
+    // ====== Simple countdown ======
+    function updateCountdown(){
+      const now=new Date();
+      let target=new Date(BIRTHDAY_DATE+'T00:00:00');
+      // If date passed this year, use next year
+      if(target<now){target.setFullYear(now.getFullYear()+1)}
+      const diff=target-now;const days=Math.floor(diff/86400000);
+      const hrs=Math.floor((diff%86400000)/3600000);const mins=Math.floor((diff%3600000)/60000);const secs=Math.floor((diff%60000)/1000);
+      document.getElementById('countdownDays').textContent = `${days}d ${hrs}h ${mins}m ${secs}s`;
+    }
+    updateCountdown();setInterval(updateCountdown,1000);
+
+    // ====== Modal Surprise ======
+    const modal=document.getElementById('modal');
+    document.getElementById('surpriseBtn').addEventListener('click',()=>{modal.classList.add('open')});
+    document.getElementById('closeModal').addEventListener('click',()=>{modal.classList.remove('open')});
+    document.getElementById('openSecret').addEventListener('click',()=>{
+      document.getElementById('secretMsg').style.display='block';
+      burstConfetti();
+    });
+
+    // ====== Confetti canvas ======
+    const canvas=document.getElementById('confettiCanvas');const ctx=canvas.getContext('2d');let W=canvas.width=innerWidth;let H=canvas.height=innerHeight;window.addEventListener('resize',()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight});
+    let confettiParticles=[];
+    function random(min,max){return Math.random()*(max-min)+min}
+    function createConfetti(x,y,count=40){for(let i=0;i<count;i++){confettiParticles.push({x:x||random(0,W),y:y||random(0,H),vx:random(-6,6),vy:random(-12,-2),size:random(6,12),color:['#ffbfd3','#ff7eb6','#8a6bd4','#f4c06d'][Math.floor(random(0,4))],life:random(60,140)})}}
+    function burstConfetti(){createConfetti(W/2,H/2,80)}
+    function updateConfetti(){ctx.clearRect(0,0,W,H);for(let i=confettiParticles.length-1;i>=0;i--){const p=confettiParticles[i];p.x+=p.vx;p.y+=p.vy;p.vy+=0.45;p.life--;ctx.fillStyle=p.color;ctx.beginPath();ctx.ellipse(p.x,p.y,p.size,p.size*0.7,0,0,Math.PI*2);ctx.fill();if(p.y>H+50||p.life<=0)confettiParticles.splice(i,1)}requestAnimationFrame(updateConfetti)}
+    updateConfetti();
+
+    // Final confetti loop when scrolled to final
+    const finalSection=document.getElementById('final');
+    const obs=new IntersectionObserver((entries)=>{if(entries[0].isIntersecting){createConfetti(W/2,H/2,100)}}, {threshold:0.5});
+    obs.observe(finalSection);
+
+    // ====== Polished hover & intersection reveals ======
+    const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.transform='translateY(0)';e.target.style.opacity=1}})},{threshold:0.15});
+    document.querySelectorAll('.reason,.polaroid').forEach(el=>{el.style.transform='translateY(18px)';el.style.opacity=0;revealObserver.observe(el)});
+
+    // ====== Simple WebAudio background loop (gentle pad) ======
+    let audioCtx=null,osc1,osc2,gainNode;let musicOn=false;function startMusic(){audioCtx=new(window.AudioContext||window.webkitAudioContext)();osc1=audioCtx.createOscillator();osc2=audioCtx.createOscillator();gainNode=audioCtx.createGain();osc1.type='sine';osc2.type='sine';osc1.frequency.value=220;osc2.frequency.value=330;gainNode.gain.value=0.02;osc1.connect(gainNode);osc2.connect(gainNode);gainNode.connect(audioCtx.destination);osc1.start();osc2.start();musicOn=true}
+    function stopMusic(){if(audioCtx){osc1.stop();osc2.stop();audioCtx.close();audioCtx=null;musicOn=false}}
+    document.getElementById('musicToggle').addEventListener('click',()=>{if(!musicOn){startMusic();document.getElementById('musicToggle').textContent='🔊 Music On'}else{stopMusic();document.getElementById('musicToggle').textContent='♫ Music'}});
+
+    // ====== Cute hover effect for images ======
+    document.querySelectorAll('.polaroid img').forEach(img=>{img.style.transition='transform .45s';img.addEventListener('mouseenter',()=>img.style.transform='scale(1.06)');img.addEventListener('mouseleave',()=>img.style.transform='scale(1)')});
+
+    // ====== Smooth keyboard accessibility for modal ======
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){modal.classList.remove('open')}});
+
+    // Optional: click outside modal to close
+    modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
+
+    // Small helper: burst confetti when secret opens via surpriseBtn
+    document.getElementById('surpriseBtn').addEventListener('click',()=>createConfetti(W/2,H/4,30));
+
+    // Accessibility: reduce motion preference check
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){document.querySelectorAll('*').forEach(n=>n.style.transition='none')}
+  </script>
+
+  <!-- Page footer (hidden attribution placeholder) -->
+  <!-- Replace the Unsplash image URLs with your personal photos for a fully-custom site -->
+</body>
+</html>
